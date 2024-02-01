@@ -2,6 +2,9 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
+// 请求前缀
+const BasePrefix = 'http://localhost:8080/';
+
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
@@ -22,7 +25,8 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  // 这里的请求路径开头需要加/, 否则会带上当前网站的路由, 然后/api会通过ant design pro代理
+  return request<API.LoginResult>('/api/user/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -64,10 +68,10 @@ export async function rule(
 export async function updateRule(options?: { [key: string]: any }) {
   return request<API.RuleListItem>('/api/rule', {
     method: 'POST',
-    data:{
+    data: {
       method: 'update',
       ...(options || {}),
-    }
+    },
   });
 }
 
@@ -75,10 +79,10 @@ export async function updateRule(options?: { [key: string]: any }) {
 export async function addRule(options?: { [key: string]: any }) {
   return request<API.RuleListItem>('/api/rule', {
     method: 'POST',
-    data:{
+    data: {
       method: 'post',
       ...(options || {}),
-    }
+    },
   });
 }
 
@@ -86,9 +90,9 @@ export async function addRule(options?: { [key: string]: any }) {
 export async function removeRule(options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/rule', {
     method: 'POST',
-    data:{
+    data: {
       method: 'delete',
       ...(options || {}),
-    }
+    },
   });
 }

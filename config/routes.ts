@@ -11,6 +11,6 @@ export default [
     ],
   },
   { icon: 'table', path: '/list', component: './TableList' },
-  { path: '/', redirect: '/welcome' },
+  { path: '/', redirect: '/user/login' },
   { path: '*', layout: false, component: './404' },
 ];

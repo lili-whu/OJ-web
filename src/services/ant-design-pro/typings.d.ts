@@ -61,11 +61,10 @@ declare namespace API {
     status?: string;
   };
 
+  // 登录传递的参数
   type LoginParams = {
-    username?: string;
+    userAccount?: string;
     password?: string;
-    autoLogin?: boolean;
-    type?: string;
   };
 
   type ErrorResponse = {
