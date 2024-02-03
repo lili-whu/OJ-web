@@ -1,7 +1,5 @@
 // https://umijs.org/config/
 import { defineConfig } from '@umijs/max';
-import { join } from 'path';
-import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
 const { REACT_APP_ENV = 'dev' } = process.env;
@@ -73,11 +71,12 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: 'Ant Design Pro',
-  layout: {
-    locale: true,
-    ...defaultSettings,
-  },
+  // 配置layout
+  // title: 'Ant Design Pro',
+  // layout: {
+  //   locale: true,
+  //   ...defaultSettings,
+  // },
   /**
    * @name moment2dayjs 插件
    * @description 将项目中的 moment 替换为 dayjs
