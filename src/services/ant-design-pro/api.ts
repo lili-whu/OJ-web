@@ -5,11 +5,14 @@ import { request } from '@umijs/max';
 // 请求前缀
 const BasePrefix = 'http://localhost:8080/';
 
-/** 获取当前的用户 GET /api/currentUser */
+/** 获取当前的用户 GET /api/user/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
+    msg: string;
+    code: number;
+    // data是返回的user
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>('/api/user/currentUser', {
     method: 'GET',
     ...(options || {}),
   });
@@ -27,6 +30,19 @@ export async function outLogin(options?: { [key: string]: any }) {
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
   // 这里的请求路径开头需要加/, 否则会带上当前网站的路由, 然后/api会通过ant design pro代理
   return request<API.LoginResult>('/api/user/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 登录接口 POST /api/user/register */
+export async function register(body: API.RegisterParams, options?: { [key: string]: any }) {
+  // 这里的请求路径开头需要加/, 否则会带上当前网站的路由, 然后/api会通过ant design pro代理
+  return request<API.RegisterResult>('/api/user/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -1,15 +1,13 @@
 import { Footer } from '@/components';
 import { login } from '@/services/ant-design-pro/api';
-import { LockOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Helmet, history, useModel } from '@umijs/max';
-import { Tabs, message } from 'antd';
+import { Button, Form, Input, Tabs, Typography, message } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
-import Constants from '../../../../config/stringConstant';
-
+const { Text, Title } = Typography;
 const useStyles = createStyles(({ token }) => {
   return {
     action: {
@@ -48,7 +46,6 @@ const useStyles = createStyles(({ token }) => {
 
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
-  const [type, setType] = useState<string>('login');
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
   const fetchUserInfo = async () => {
@@ -68,152 +65,115 @@ const Login: React.FC = () => {
       const msg = await login({
         ...values,
       });
-      if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = '登录成功！';
-        message.success(defaultLoginSuccessMessage);
+      if (msg.code === 1) {
+        message.success('登录成功!');
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
         return;
+      } else if (msg.code === 0) {
+        // 如果失败去设置用户错误信息
+        message.error(msg.msg);
       }
-      console.log(msg);
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
     } catch (error) {
       const defaultLoginFailureMessage = '登录失败，请重试！';
       console.log(error);
       message.error(defaultLoginFailureMessage);
     }
   };
-  const { status, type: loginType } = userLoginState;
   return (
     <div className={styles.container}>
       {/* helmet 头部 最上方导航栏*/}
       <Helmet>
-        {type === 'login' && (
-          <title>
-            {'登录'}-{Settings.title}
-          </title>
-        )}
-        {type === 'register' && (
-          <title>
-            {'注册'}-{Settings.title}
-          </title>
-        )}
+        <title>
+          {'登录'}-{Settings.title}
+        </title>
       </Helmet>
+
       <div
         style={{
           flex: '1',
-          padding: '64px 0',
+          padding: '200px 35% 0 35%',
         }}
       >
-        <LoginForm
-          contentStyle={{
-            minWidth: 280,
-            maxWidth: '75vw',
-          }}
-          logo={Settings.logo}
-          title={Settings.title}
-          subTitle={Constants.subtitle}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {/* 头像 */}
+            <img
+              src="http://lili-web.oss-cn-beijing.aliyuncs.com/logo.svg"
+              alt="Logo"
+              style={{ height: 50, width: 50, marginRight: 20 }}
+            />
+            <Title level={2} style={{ marginBottom: 0 }}>
+              lili-web
+            </Title>
+          </div>
+          <div style={{ width: '100%', textAlign: 'center', padding: '5px' }}>
+            <span style={{ fontSize: 15 }}>这是一个web项目</span>
+          </div>
+        </div>
+
+        <Tabs
+          centered
+          items={[
+            {
+              key: 'login',
+              label: '用户登录',
+            },
+          ]}
+        />
+        <Form
+          size="large"
+          name="loginForm"
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
           }}
         >
-          <Tabs
-            activeKey={type}
-            onChange={setType}
-            centered
-            items={[
+          <Form.Item
+            name="userAccount"
+            rules={[
               {
-                key: 'login',
-                label: '用户登录',
-              },
-              {
-                key: 'register',
-                label: '用户注册',
+                pattern: /[0-9a-zA-Z_]{6,20}/,
+                message: '账号需大于等于6位, 由字母数字下划线组成',
               },
             ]}
-          />
-
-          {type === 'login' && (
-            <>
-              <ProFormText
-                name="userAccount"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <UserOutlined />,
-                }}
-                placeholder={'请输入账号'}
-                rules={[
-                  {
-                    required: true,
-                    message: '账号需大于等于6位, 由字母数字下划线组成',
-                  },
-                ]}
-              />
-              <ProFormText.Password
-                name="password"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <LockOutlined />,
-                }}
-                placeholder={'请输入密码'}
-                rules={[
-                  {
-                    required: true,
-                    message: '密码需大于等于6位, 且包含字母和数字',
-                  },
-                ]}
-              />
-            </>
-          )}
-
-          {type === 'register' && (
-            <>
-              <ProFormText
-                fieldProps={{
-                  size: 'large',
-                  prefix: <UserAddOutlined />,
-                }}
-                // name="register"
-                placeholder={'请输入初始账号'}
-                rules={[
-                  {
-                    pattern: /[0-9a-zA-Z_]{6,20}/,
-                    message: '账号需大于等于6位, 由字母数字下划线组成',
-                  },
-                ]}
-              />
-              <ProFormText.Password
-                fieldProps={{
-                  size: 'large',
-                  prefix: <LockOutlined />,
-                }}
-                placeholder={'请输入初始密码'}
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: '密码需大于等于6位, 且同时包含字母和数字',
-                  },
-                ]}
-              />
-            </>
-          )}
-          <div
-            style={{
-              marginBottom: 24,
-            }}
           >
+            <Input prefix={<UserOutlined />} placeholder="请输入账号" />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                pattern: /^(?=.*[a-zA-Z])(?=.*\d).{6,100}$/,
+                message: '密码需大于等于6位, 且包含字母和数字',
+              },
+            ]}
+          >
+            <Input prefix={<LockOutlined />} type="password" placeholder="请输入密码" />
+          </Form.Item>
+
+          <Form.Item>
+            {/* float指定位置 */}
             <a
               style={{
                 float: 'right',
               }}
+              href="register"
             >
-              忘记密码 ?
+              新用户 ?
             </a>
-          </div>
-        </LoginForm>
+          </Form.Item>
+
+          <Form.Item
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <Button type="primary" htmlType="submit">
+              登录
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
       <Footer />
     </div>

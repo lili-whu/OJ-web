@@ -9,16 +9,19 @@ import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
-
+const registerPath = '/user/register';
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
+
+// 页面刷新时自动执行
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
+  // async 异步函数
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser({
@@ -26,13 +29,16 @@ export async function getInitialState(): Promise<{
       });
       return msg.data;
     } catch (error) {
+      // 发生error 直接重定向, onPageChange也有这个逻辑
       history.push(loginPath);
     }
     return undefined;
   };
   // 如果不是登录页面，执行
   const { location } = history;
-  if (location.pathname !== loginPath) {
+  const whiteList = [loginPath, registerPath, '/welcome'];
+  if (!whiteList.includes(location.pathname)) {
+    // 获取当前用户信息
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
@@ -58,13 +64,19 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       },
     },
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
+
+      const whileList = [registerPath, loginPath, '/welcome'];
+      // 如果界面在白名单中, 直接return
+      if (whileList.includes(location.pathname)) {
+        return;
+      }
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      if (!initialState?.currentUser) {
         history.push(loginPath);
       }
     },

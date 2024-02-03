@@ -13,3 +13,13 @@
 加载请求使用 request(封装了 axios)进行后端请求, 同时用到了 proxy 正向代理, 自动转发/api 请求到后端
 
 登录状态测试成功, 接口返回用户信息, 并保存 SessionID(session 中没有存储用户信息, 信息存储在后端 HttpServerletRequest, 具体的 session 原理还需要研究)
+
+## 2.2 注册界面开发
+
+1. app.tsx 是前端项目的全局文件, 在 app.tsx 中有一个 onPageChange, 判断用户身份, 如果得不到用户身份则跳转到 login 界面; app.tsx 中的 getInitialState 会在页面刷新时执行, 其中定义的 fetchUserInfo 的 async 异步函数, 会在界面不是 login 时执行并 await 结果
+
+2. 重写了登录和注册组件, 使用 ant design 的 form 表单实现, 并添加了表头的头像和标题
+
+3. 修改了和后端统一的请求接口和返回类型
+
+4. 创建字符串常量类出现无法识别的问题, 需要后续解决(todo), 出现报错以报错为线索去解决, 一个字符串常量类导致整个界面无法加载

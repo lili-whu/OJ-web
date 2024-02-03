@@ -3,30 +3,39 @@
 
 declare namespace API {
   type CurrentUser = {
-    name?: string;
+    id?: number;
+
+    username?: string;
+
+    userAccount?: string;
+
     avatar?: string;
-    userid?: string;
-    email?: string;
-    signature?: string;
-    title?: string;
-    group?: string;
-    tags?: { key?: string; label?: string }[];
-    notifyCount?: number;
-    unreadCount?: number;
-    country?: string;
-    access?: string;
-    geographic?: {
-      province?: { label?: string; key?: string };
-      city?: { label?: string; key?: string };
-    };
-    address?: string;
+
+    userRole?: number;
+
+    gender?: number;
+
     phone?: string;
+
+    email?: string;
+
+    status?: number;
+
+    createTime?: Date;
+
+    updateTime?: Date;
   };
 
   type LoginResult = {
-    status?: string;
-    type?: string;
-    currentAuthority?: string;
+    msg?: string;
+    code?: number;
+    data?: CurrentUser;
+  };
+
+  type RegisterResult = {
+    msg?: string;
+    code?: number;
+    data?: CurrentUser;
   };
 
   type PageParams = {
@@ -56,15 +65,17 @@ declare namespace API {
     success?: boolean;
   };
 
-  type FakeCaptcha = {
-    code?: number;
-    status?: string;
-  };
-
   // 登录传递的参数
   type LoginParams = {
     userAccount?: string;
     password?: string;
+  };
+
+  // 注册传递的参数
+  type RegisterParams = {
+    userAccount?: string;
+    password?: string;
+    confirmPassword?: string;
   };
 
   type ErrorResponse = {
