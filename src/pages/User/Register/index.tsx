@@ -1,6 +1,5 @@
 import { Footer } from '@/components';
 import { register } from '@/services/ant-design-pro/api';
-import { API } from '@/services/ant-design-pro/typings';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Helmet, history, useModel } from '@umijs/max';
 import { Button, Form, Input, Tabs, message } from 'antd';

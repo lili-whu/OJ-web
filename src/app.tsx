@@ -7,7 +7,6 @@ import {
 import { RunTimeLayoutConfig, history } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { AvatarDropdown, AvatarName, Footer } from './components';
-import { API } from './services/ant-design-pro/typings';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 const registerPath = '/user/register';

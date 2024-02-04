@@ -1,7 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 import { request } from '@umijs/max';
-import { API } from './typings';
 
 // 请求前缀
 const BasePrefix = 'http://localhost:8080/';

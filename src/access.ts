@@ -1,5 +1,3 @@
-import { API } from './services/ant-design-pro/typings';
-
 /**
  * @see https://umijs.org/docs/max/access#access
  * */

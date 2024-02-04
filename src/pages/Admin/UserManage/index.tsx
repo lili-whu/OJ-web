@@ -1,5 +1,4 @@
 import { search } from '@/services/ant-design-pro/api';
-import { API } from '@/services/ant-design-pro/typings';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
@@ -179,7 +178,7 @@ export default () => {
         console.log(params, sort, filter);
         var user: API.CurrentUser = { username: '' };
         // await waitTime(2000);
-        const result: API.SearchResult = await search(user);
+        const result = await search(user);
         console.log(result);
         const userList = result.data;
         return {
