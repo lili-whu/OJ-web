@@ -26,17 +26,19 @@ declare namespace API {
     updateTime?: Date;
   };
 
-  type LoginResult = {
-    msg?: string;
+  /**
+   * 对接后端的通用返回类
+   */
+  type Result<T> = {
+    message?: string;
     code?: number;
-    data?: CurrentUser;
+    data?: T;
   };
-
-  type RegisterResult = {
-    msg?: string;
-    code?: number;
-    data?: CurrentUser;
-  };
+  // data直接是number而不是对象
+  type RegisterResult = number;
+  type LogOutResult = number;
+  type SearchResult = CurrentUser[];
+  type LoginResult = CurrentUser;
 
   type PageParams = {
     current?: number;

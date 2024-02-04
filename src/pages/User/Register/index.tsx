@@ -1,5 +1,6 @@
 import { Footer } from '@/components';
 import { register } from '@/services/ant-design-pro/api';
+import { API } from '@/services/ant-design-pro/typings';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Helmet, history, useModel } from '@umijs/max';
 import { Button, Form, Input, Tabs, message } from 'antd';
@@ -52,13 +53,13 @@ const Register: React.FC = () => {
       const ret = await register({
         ...values,
       });
-      if (ret.code === 1) {
+      if (ret.code === 20000) {
         message.success('注册成功');
         history.push('/user/login');
         return;
-      } else if (ret.code === 0) {
+      } else {
         // 如果失败去展示用户错误信息
-        message.error(ret.msg);
+        message.error(ret.message);
       }
     } catch (error) {
       const defaultLoginFailureMessage = '注册失败，请重试！';

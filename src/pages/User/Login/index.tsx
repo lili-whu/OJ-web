@@ -1,5 +1,6 @@
 import { Footer } from '@/components';
 import { login } from '@/services/ant-design-pro/api';
+import { API } from '@/services/ant-design-pro/typings';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Helmet, history, useModel } from '@umijs/max';
 import { Button, Form, Input, Tabs, Typography, message } from 'antd';
@@ -65,15 +66,15 @@ const Login: React.FC = () => {
       const msg = await login({
         ...values,
       });
-      if (msg.code === 1) {
+      if (msg.code === 20000) {
         message.success('登录成功!');
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
         return;
-      } else if (msg.code === 0) {
-        // 如果失败去设置用户错误信息
-        message.error(msg.msg);
+      } else {
+        // 如果出现错误
+        message.error(msg.message);
       }
     } catch (error) {
       const defaultLoginFailureMessage = '登录失败，请重试！';

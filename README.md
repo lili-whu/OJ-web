@@ -28,3 +28,15 @@
 
 1.  使用 AntDesign 的 Menu 组件, 去除了 app.tsx 中定义的全局 layout 布局 ProLayout
 2.  使用 children 完成了页面嵌套, 使用<Outlet>做了路由组件的嵌套
+
+## 2.4 用户信息表格展示
+
+1. 使用 ProComponents 的 table 组件展示用户信息, 路由/admin/userMange, 主要是定义 columns, 可以根据列项自动生成查询条件等,包含
+   - dataIndex 对象字段
+   - title 列名
+   - filters:过滤筛选
+   - valueType: 数据类型(日期 datetime, select 枚举类型)
+   - render: 数据渲染
+   - sorter 排序
+2. 退出登录接口, 后端会将 session 对应的 user 信息取消, 前端也更改 InitialState
+3. 适配后端的统一响应结果

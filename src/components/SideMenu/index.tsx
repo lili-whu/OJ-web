@@ -59,7 +59,7 @@ const items: MenuProps['items'] = [
   getItem('Group', 'grp', null, [getItem('Option 13', '13'), getItem('Option 14', '14')], 'group'),
 ];
 
-const SizeMenu: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+const SideMenu: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -70,32 +70,39 @@ const SizeMenu: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     history.push(key);
   }
 
+  const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
+    key,
+    label: `nav ${key}`,
+  }));
+
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        width="256px"
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-        theme="light"
-      >
-        <div className="demo-logo-vertical" />
-        <Menu
-          onClick={pageSelect}
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-          items={items}
+    <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider
+          width="256px"
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
           theme="light"
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: '0 16px' }}>{children}</Content>
-        <Footer />
+        >
+          <div className="demo-logo-vertical" />
+          <Menu
+            onClick={pageSelect}
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline"
+            items={items}
+            theme="light"
+          />
+        </Sider>
+        <Layout>
+          <Header style={{ padding: 0, background: colorBgContainer }} />
+          <Content style={{ margin: '0 16px' }}>{children}</Content>
+          <Footer />
+        </Layout>
       </Layout>
     </Layout>
   );
 };
 
-export default SizeMenu;
+export default SideMenu;

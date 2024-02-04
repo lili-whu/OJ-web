@@ -1,10 +1,10 @@
 import { addRule, removeRule, rule, updateRule } from '@/services/ant-design-pro/api';
+import { API } from '@/services/ant-design-pro/typings';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
   FooterToolbar,
   ModalForm,
-  PageContainer,
   ProDescriptions,
   ProFormText,
   ProFormTextArea,
@@ -194,7 +194,7 @@ const TableList: React.FC = () => {
     },
   ];
   return (
-    <PageContainer>
+    <div>
       <ProTable<API.RuleListItem, API.PageParams>
         headerTitle={'查询表格'}
         actionRef={actionRef}
@@ -323,7 +323,7 @@ const TableList: React.FC = () => {
           />
         )}
       </Drawer>
-    </PageContainer>
+    </div>
   );
 };
 export default TableList;
