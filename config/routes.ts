@@ -27,10 +27,10 @@ export default [
     name: '管理页',
     icon: 'crown',
     component: './Admin',
-    access: 'canAdmin', // 对应access, 只有管理员能查看的界面
+    // access: 'canAdmin', // 对应access, 只有管理员能查看的界面
     routes: [
       { path: '/admin/userManage', name: '用户管理', component: './Admin/UserManage' },
-      { path: '/admin/tableList', name: '表格', component: './Admin/TableList' },
+      // { path: '/admin/tableList', name: '表格', component: './Admin/TableList' },
     ],
   },
   // { icon: 'table', path: '/list', component: './TableList' },

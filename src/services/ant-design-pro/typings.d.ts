@@ -39,7 +39,7 @@ declare namespace API {
   type LogOutResult = number;
   type SearchResult = CurrentUser[];
   type LoginResult = CurrentUser;
-
+  type DeleteResult = boolean;
   type PageParams = {
     current?: number;
     pageSize?: number;

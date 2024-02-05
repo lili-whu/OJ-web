@@ -1,8 +1,7 @@
-import { search } from '@/services/ant-design-pro/api';
-import { PlusOutlined } from '@ant-design/icons';
+import { deleteUser, search } from '@/services/ant-design-pro/api';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Button, Image } from 'antd';
+import { message } from 'antd';
 import { useRef } from 'react';
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -15,8 +14,14 @@ export const waitTimePromise = async (time: number = 100) => {
 export const waitTime = async (time: number = 100) => {
   await waitTimePromise(time);
 };
-
-function deleteUserSubmit(id: number) {
+async function deleteUserSubmit(id: number) {
+  const res = await deleteUser(id);
+  if (res.code === 20000) {
+    message.success('用户删除成功');
+    window.location.reload();
+  } else {
+    message.error(res.message);
+  }
   // 发送删除请求
 }
 
@@ -25,6 +30,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     dataIndex: 'id',
     title: 'id',
     width: 36,
+    editable: false,
   },
   {
     title: '用户名',
@@ -98,11 +104,12 @@ const columns: ProColumns<API.CurrentUser>[] = [
     dataIndex: 'avatar',
     width: 48,
     search: false,
-    render: (dom, entity, index, action, schema) => (
-      <div>
-        <Image src={entity.avatar}></Image>
-      </div>
-    ),
+    valueType: 'avatar',
+    // render: (dom, entity, index, action, schema) => (
+    //   <div>
+    //     <Image src={entity.avatar}></Image>
+    //   </div>
+    // ),
   },
   {
     disable: true,
@@ -133,6 +140,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     sorter: true,
     width: 128,
     hideInSearch: true,
+    editable: false,
   },
   {
     title: '修改时间',
@@ -141,20 +149,21 @@ const columns: ProColumns<API.CurrentUser>[] = [
     valueType: 'dateTime',
     sorter: true,
     hideInSearch: true,
+    editable: false,
   },
   {
     title: '操作',
     valueType: 'option',
     key: 'option',
     render: (text, record, _, action) => [
-      <a
-        key="editable"
-        onClick={() => {
-          action?.startEditable?.(record.id as number);
-        }}
-      >
-        编辑
-      </a>,
+      // <a
+      //   key="editable"
+      //   onClick={() => {
+      //     action?.startEditable?.(record.id as number);
+      //   }}
+      // >
+      //   编辑
+      // </a>,
       <a
         key="deleteUser"
         onClick={() => {
@@ -232,16 +241,16 @@ export default () => {
       dateFormatter="string"
       headerTitle=""
       toolBarRender={() => [
-        <Button
-          key="button"
-          icon={<PlusOutlined />}
-          onClick={() => {
-            actionRef.current?.reload();
-          }}
-          type="primary"
-        >
-          新建
-        </Button>,
+        // <Button
+        //   key="button"
+        //   icon={<PlusOutlined />}
+        //   onClick={() => {
+        //     actionRef.current?.reload();
+        //   }}
+        //   type="primary"
+        // >
+        //   新建
+        // </Button>,
       ]}
     />
   );

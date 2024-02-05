@@ -56,6 +56,15 @@ export async function search(body: API.CurrentUser, options?: { [key: string]: a
   });
 }
 
+/** 批量查找用户 DElETE '/api/user/delete/' + {id} */
+// ``加上doller符号差值表达式
+export async function deleteUser(id: number, options?: { [key: string]: any }) {
+  return request<API.Result<API.DeleteResult>>(`/api/user/delete/${id}`, {
+    method: 'DELETE',
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
   return request<API.NoticeIconList>('/api/notices', {
