@@ -47,13 +47,24 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
   });
 }
 
-/** 批量查找用户 GET /api/user/search */
-export async function search(body: API.CurrentUser, options?: { [key: string]: any }) {
-  return request<API.Result<API.SearchResult>>('/api/user/search', {
-    method: 'GET',
-    data: body,
-    ...(options || {}),
-  });
+/** 批量查找用户 POST /api/user/search */
+export async function search(
+  pageSize: number,
+  current: number,
+  body: API.CurrentUserDTO,
+  options?: { [key: string]: any },
+) {
+  return request<API.Result<API.SearchResult>>(
+    `/api/user/search?pageSize=${pageSize}&current=${current}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
+    },
+  );
 }
 
 /** 批量查找用户 DElETE '/api/user/delete/' + {id} */

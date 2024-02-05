@@ -26,6 +26,18 @@ declare namespace API {
     updateTime?: Date;
   };
 
+  type CurrentUserDTO = {
+    id?: number;
+    username?: string;
+    userAccount?: string;
+    avatar?: string;
+    userRole?: number;
+    gender?: number;
+    phone?: string;
+    email?: string;
+    status?: number;
+  };
+
   /**
    * 对接后端的通用返回类
    */
@@ -37,7 +49,10 @@ declare namespace API {
   // data直接是number而不是对象
   type RegisterResult = number;
   type LogOutResult = number;
-  type SearchResult = CurrentUser[];
+  type SearchResult = {
+    total: number;
+    userList: CurrentUser[];
+  };
   type LoginResult = CurrentUser;
   type DeleteResult = boolean;
   type PageParams = {

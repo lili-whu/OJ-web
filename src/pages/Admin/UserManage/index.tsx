@@ -36,16 +36,15 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '用户名',
     dataIndex: 'username',
     copyable: true,
-    ellipsis: true,
+    // ellipsis: true,
     // tip: '标题过长会自动收缩', // ?提示
-    formItemProps: {
-      rules: [
-        {
-          required: true,
-          message: '此项为必填项',
-        },
-      ],
-    },
+  },
+  {
+    title: '账户名',
+    dataIndex: 'userAccount',
+    copyable: true,
+    // ellipsis: true,
+    // tip: '标题过长会自动收缩', // ?提示
   },
   {
     title: '电话',
@@ -63,9 +62,9 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '用户状态',
     dataIndex: 'status',
     width: 96,
-    filters: true, // 筛选
-    onFilter: true,
-    ellipsis: true,
+    // filters: true, // 筛选
+    // onFilter: true,
+    // ellipsis: true,
     valueType: 'select',
     valueEnum: {
       0: {
@@ -83,9 +82,9 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '用户角色',
     dataIndex: 'userRole',
     width: 96,
-    filters: true, // 筛选
-    onFilter: true,
-    ellipsis: true,
+    // filters: true, // 筛选
+    // onFilter: true,
+    // ellipsis: true,
     valueType: 'select',
     valueEnum: {
       1: {
@@ -116,9 +115,9 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '性别',
     width: 96,
     dataIndex: 'gender',
-    filters: true, // 筛选
-    onFilter: true,
-    ellipsis: true,
+    // filters: true, // 筛选
+    // onFilter: true,
+    // ellipsis: true,
     valueType: 'select',
     valueEnum: {
       0: {
@@ -137,7 +136,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     key: 'createTime',
     dataIndex: 'createTime',
     valueType: 'date',
-    sorter: true,
+    sorter: false,
     width: 128,
     hideInSearch: true,
     editable: false,
@@ -147,7 +146,8 @@ const columns: ProColumns<API.CurrentUser>[] = [
     key: 'updateTime',
     dataIndex: 'updateTime',
     valueType: 'dateTime',
-    sorter: true,
+    width: 128,
+    sorter: false,
     hideInSearch: true,
     editable: false,
   },
@@ -184,21 +184,28 @@ export default () => {
       actionRef={actionRef}
       cardBordered
       request={async (params, sort, filter) => {
-        console.log(params, sort, filter);
-        var user: API.CurrentUser = { username: '' };
+        if (params.username === '') params.username = undefined;
+        var user: API.CurrentUserDTO = {
+          id: params.id,
+          username: params.username,
+          userAccount: params.userAccount,
+          avatar: params.avatar,
+          userRole: params.userRole,
+          gender: params.gender,
+          phone: params.phone,
+          email: params.email,
+          status: params.status,
+        };
         // await waitTime(2000);
-        const result = await search(user);
-        console.log(result);
-        const userList = result.data;
+        const result = await search(params.pageSize as number, params.current as number, user);
         return {
-          data: userList,
+          data: result.data?.userList,
           // success 请返回 true，
           // 不然 table 会停止解析数据，即使有数据
           success: true,
           // 不传会使用 data 的长度，如果是分页一定要传
-          total: 15,
+          total: result.data?.total,
         };
-        return userList;
       }}
       editable={{
         type: 'multiple',
