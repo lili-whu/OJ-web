@@ -1,0 +1,1188 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/user/revise": {
+      "put": {
+        "tags": ["user-controller"],
+        "operationId": "reviseUser",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/question/update": {
+      "put": {
+        "tags": ["question-controller"],
+        "operationId": "updateQuestion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/search": {
+      "post": {
+        "tags": ["user-controller"],
+        "operationId": "searchUsers",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafetyUserDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageSafetyUserVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/register": {
+      "post": {
+        "tags": ["user-controller"],
+        "operationId": "userRegister",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultLong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "tags": ["user-controller"],
+        "operationId": "userLogout",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultInteger"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/login": {
+      "post": {
+        "tags": ["user-controller"],
+        "operationId": "userLogin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultSafetyUser"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/record/page": {
+      "post": {
+        "tags": ["record-submit-controller"],
+        "operationId": "getRecordSubmitPage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordSubmitQueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListRecordSubmitVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/record/": {
+      "post": {
+        "tags": ["record-submit-controller"],
+        "operationId": "recordSubmit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordSubmitAddRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultLong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/question/user/page": {
+      "post": {
+        "tags": ["question-controller"],
+        "operationId": "getQuestionsByUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionQueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListQuestionUserVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/question/admin/page": {
+      "post": {
+        "tags": ["question-controller"],
+        "operationId": "getQuestionsByAdmin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionQueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListQuestionAdminVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/question/add": {
+      "post": {
+        "tags": ["question-controller"],
+        "operationId": "addQuestion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionAddRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultLong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/currentUser": {
+      "get": {
+        "tags": ["user-controller"],
+        "operationId": "getCurrentUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultSafetyUser"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/question/user/{id}": {
+      "get": {
+        "tags": ["question-controller"],
+        "operationId": "getUserQuestionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultQuestionUserVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/question/admin/{id}": {
+      "get": {
+        "tags": ["question-controller"],
+        "operationId": "getAdminQuestionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultQuestionAdminVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/delete/{id}": {
+      "delete": {
+        "tags": ["user-controller"],
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/question/delete/{id}": {
+      "delete": {
+        "tags": ["question-controller"],
+        "operationId": "deleteQuestion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "userAccount": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "userRole": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gender": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isDelete": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ResultBoolean": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "boolean"
+          }
+        }
+      },
+      "JudgeCase": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          }
+        }
+      },
+      "JudgeConfig": {
+        "type": "object",
+        "properties": {
+          "timeLimit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "memoryLimit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "stackLimit": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "QuestionUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "string"
+          },
+          "judgeCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JudgeCase"
+            }
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig"
+          }
+        }
+      },
+      "SafetyUserDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "userAccount": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "userRole": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gender": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PageSafetyUserVO": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafetyUser"
+            }
+          }
+        }
+      },
+      "ResultPageSafetyUserVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageSafetyUserVO"
+          }
+        }
+      },
+      "SafetyUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "username": {
+            "type": "string",
+            "refType": null
+          },
+          "userAccount": {
+            "type": "string",
+            "refType": null
+          },
+          "avatar": {
+            "type": "string",
+            "refType": null
+          },
+          "userRole": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "gender": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "phone": {
+            "type": "string",
+            "refType": null
+          },
+          "email": {
+            "type": "string",
+            "refType": null
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "refType": null
+          }
+        }
+      },
+      "UserRegisterRequest": {
+        "type": "object",
+        "properties": {
+          "userAccount": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "confirmPassword": {
+            "type": "string"
+          }
+        }
+      },
+      "ResultLong": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ResultInteger": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UserLoginRequest": {
+        "type": "object",
+        "properties": {
+          "userAccount": {
+            "type": "string",
+            "refType": null
+          },
+          "password": {
+            "type": "string",
+            "refType": null
+          }
+        }
+      },
+      "ResultSafetyUser": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SafetyUser"
+          }
+        }
+      },
+      "RecordSubmitQueryRequest": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sortField": {
+            "type": "string"
+          },
+          "sortOrder": {
+            "type": "string"
+          },
+          "language": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "resultStatus": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "questionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "JudgeInfo": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "memoryConsume": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "timeConsume": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "QuestionUserVO": {
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "string"
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig"
+          },
+          "submitNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "acceptNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "thumbNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "favorNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RecordSubmitVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "language": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "judgeInfo": {
+            "$ref": "#/components/schemas/JudgeInfo"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "questionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "safetyUser": {
+            "$ref": "#/components/schemas/SafetyUser"
+          },
+          "questionUserVO": {
+            "$ref": "#/components/schemas/QuestionUserVO"
+          }
+        }
+      },
+      "ResultListRecordSubmitVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecordSubmitVO"
+            }
+          }
+        }
+      },
+      "RecordSubmitAddRequest": {
+        "type": "object",
+        "properties": {
+          "language": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "questionId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "QuestionQueryRequest": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sortField": {
+            "type": "string"
+          },
+          "sortOrder": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "string"
+          },
+          "createId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ResultListQuestionUserVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionUserVO"
+            }
+          }
+        }
+      },
+      "QuestionAdminVO": {
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "string"
+          },
+          "judgeCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JudgeCase"
+            }
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig"
+          },
+          "submitNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "acceptNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "thumbNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "favorNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ResultListQuestionAdminVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionAdminVO"
+            }
+          }
+        }
+      },
+      "QuestionAddRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "string"
+          },
+          "judgeCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JudgeCase"
+            }
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig"
+          }
+        }
+      },
+      "ResultQuestionUserVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/QuestionUserVO"
+          }
+        }
+      },
+      "ResultQuestionAdminVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/QuestionAdminVO"
+          }
+        }
+      }
+    }
+  }
+}

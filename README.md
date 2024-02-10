@@ -9,8 +9,13 @@
 1. 引入 markdown 编辑 https://github.com/bytedance/bytemd 创建两个组件 MdEditor 和 MdViewer, 定义 props(值和回调函数)用于和父组件通信
 2. 引入代码编辑 https://github.com/suren-atoyan/monaco-react 默认 Java // todo 加载可选配置
 3. 使用 OpenApi 导入了后端接口
-   - 之前写的 User 的相关接口也改成了统一的 openapi 的接口类型 _ 调用的方法名等于后端的方法名 _ post 参数为后端定义的封装 dto 类名, get 参数为方法名+Params _ 返回类型为封装 VO 名称/类型名称+Result _ (调用的方法感觉类似于 rpc, 可以直接调用后端的方法) plan
-4. 创建题目页面
+   - 之前写的 User 的相关接口也改成了统一的 openapi 的接口类型
+   - 调用的方法名等于后端的方法名
+   - post 参数为后端定义的封装 dto 类名, get 参数为方法名+Params
+   - 返回类型为封装 VO 名称/类型名称+Result
+   - (调用的方法感觉类似于 rpc, 可以直接调用后端的方法) plan
+4. 创建题目页面使用 ant design 的表单组件, 包括 list, checkbox, radio 等
+   - tips:优先使用组件的 jsx 定义去定义样式, 部分无法修改的样式(例如表单居中)不能修改, 可以调整子元素的 width, 以及改变子元素的 jsx 去实现
 5. 题目内容管理页面
 6. 题目列表
 7. 题目详情/在线做题

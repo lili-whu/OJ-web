@@ -26,6 +26,12 @@ declare namespace API {
     stackLimit?: number;
   };
 
+  type JudgeInfo = {
+    message?: string;
+    memoryConsume?: number;
+    timeConsume?: number;
+  };
+
   type PageSafetyUserVO = {
     total?: number;
     userList?: SafetyUser[];
@@ -106,6 +112,31 @@ declare namespace API {
     questionId?: number;
   };
 
+  type RecordSubmitQueryRequest = {
+    current?: number;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    language?: number;
+    resultStatus?: number;
+    questionId?: number;
+    createId?: number;
+  };
+
+  type RecordSubmitVO = {
+    id?: number;
+    language?: number;
+    code?: string;
+    judgeInfo?: JudgeInfo;
+    status?: number;
+    questionId?: number;
+    createId?: number;
+    createTime?: string;
+    updateTime?: string;
+    safetyUser?: SafetyUser;
+    questionUserVO?: QuestionUserVO;
+  };
+
   type ResultBoolean = {
     code?: number;
     message?: string;
@@ -128,6 +159,12 @@ declare namespace API {
     code?: number;
     message?: string;
     data?: QuestionUserVO[];
+  };
+
+  type ResultListRecordSubmitVO = {
+    code?: number;
+    message?: string;
+    data?: RecordSubmitVO[];
   };
 
   type ResultLong = {

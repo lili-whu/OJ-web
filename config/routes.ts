@@ -26,7 +26,10 @@ export default [
   {
     path: '/main',
     name: '题目页面',
-    routes: [{ path: '/main/coding', name: '做题', component: './Main/Coding' }],
+    routes: [
+      { path: '/main/coding', name: '做题', component: './Main/Coding' },
+      { path: '/main/questionList', name: '题目列表', component: './Main/QuestionList' },
+    ],
   },
   { path: '*', layout: false, component: './404' },
 ];

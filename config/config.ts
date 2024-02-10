@@ -127,7 +127,7 @@ export default defineConfig({
   openAPI: {
     requestLibPath: "import { request } from 'umi'",
     // 或者使用在线的版本
-    schemaPath: '/Users/lili/Downloads/default_OpenAPI.json',
+    schemaPath: '/Users/lili/Desktop/OJ-coding/OJ-web/default_OpenAPI.json',
     mock: false,
   },
   mfsu: {
