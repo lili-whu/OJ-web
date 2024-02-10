@@ -1,102 +1,224 @@
-// @ts-ignore
-/* eslint-disable */
-
 declare namespace API {
-  type CurrentUser = {
-    id?: number;
+  type deleteQuestionParams = {
+    id: number;
+  };
 
-    username?: string;
+  type deleteUserParams = {
+    id: number;
+  };
 
-    userAccount?: string;
+  type getAdminQuestionByIdParams = {
+    id: number;
+  };
 
+  type getUserQuestionByIdParams = {
+    id: number;
+  };
+
+  type JudgeCase = {
+    input?: string;
+    output?: string;
+  };
+
+  type JudgeConfig = {
+    timeLimit?: number;
+    memoryLimit?: number;
+    stackLimit?: number;
+  };
+
+  type PageSafetyUserVO = {
+    total?: number;
+    userList?: SafetyUser[];
+  };
+
+  type QuestionAddRequest = {
+    title?: string;
+    description?: string;
+    tags?: string[];
+    answer?: string;
+    judgeCase?: JudgeCase[];
+    judgeConfig?: JudgeConfig;
+  };
+
+  type QuestionAdminVO = {
     avatar?: string;
-
-    userRole?: number;
-
-    gender?: number;
-
-    phone?: string;
-
-    email?: string;
-
-    status?: number;
-
-    createTime?: Date;
-
-    updateTime?: Date;
-  };
-
-  type CurrentUserDTO = {
-    id?: number;
     username?: string;
-    userAccount?: string;
-    avatar?: string;
-    userRole?: number;
-    gender?: number;
-    phone?: string;
-    email?: string;
-    status?: number;
+    id?: number;
+    title?: string;
+    description?: string;
+    tags?: string[];
+    answer?: string;
+    judgeCase?: JudgeCase[];
+    judgeConfig?: JudgeConfig;
+    submitNum?: number;
+    acceptNum?: number;
+    thumbNum?: number;
+    favorNum?: number;
+    createId?: number;
+    createTime?: string;
+    updateTime?: string;
   };
 
-  /**
-   * 对接后端的通用返回类
-   */
-  type Result<T> = {
-    message?: string;
-    code?: number;
-    data?: T;
-  };
-  // data直接是number而不是对象
-  type RegisterResult = number;
-  type LogOutResult = number;
-  type SearchResult = {
-    total: number;
-    userList: CurrentUser[];
-  };
-  type LoginResult = CurrentUser;
-  type DeleteResult = boolean;
-  type PageParams = {
+  type QuestionQueryRequest = {
     current?: number;
     pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    id?: number;
+    title?: string;
+    description?: string;
+    tags?: string[];
+    answer?: string;
+    createId?: number;
   };
 
-  type RuleListItem = {
-    key?: number;
-    disabled?: boolean;
-    href?: string;
+  type QuestionUpdateRequest = {
+    id?: number;
+    title?: string;
+    description?: string;
+    tags?: string[];
+    answer?: string;
+    judgeCase?: JudgeCase[];
+    judgeConfig?: JudgeConfig;
+  };
+
+  type QuestionUserVO = {
     avatar?: string;
-    name?: string;
-    owner?: string;
-    desc?: string;
-    callNo?: number;
+    username?: string;
+    id?: number;
+    title?: string;
+    description?: string;
+    tags?: string[];
+    answer?: string;
+    judgeConfig?: JudgeConfig;
+    submitNum?: number;
+    acceptNum?: number;
+    thumbNum?: number;
+    favorNum?: number;
+    createId?: number;
+    createTime?: string;
+    updateTime?: string;
+  };
+
+  type RecordSubmitAddRequest = {
+    language?: number;
+    code?: string;
+    questionId?: number;
+  };
+
+  type ResultBoolean = {
+    code?: number;
+    message?: string;
+    data?: boolean;
+  };
+
+  type ResultInteger = {
+    code?: number;
+    message?: string;
+    data?: number;
+  };
+
+  type ResultListQuestionAdminVO = {
+    code?: number;
+    message?: string;
+    data?: QuestionAdminVO[];
+  };
+
+  type ResultListQuestionUserVO = {
+    code?: number;
+    message?: string;
+    data?: QuestionUserVO[];
+  };
+
+  type ResultLong = {
+    code?: number;
+    message?: string;
+    data?: number;
+  };
+
+  type ResultPageSafetyUserVO = {
+    code?: number;
+    message?: string;
+    data?: PageSafetyUserVO;
+  };
+
+  type ResultQuestionAdminVO = {
+    code?: number;
+    message?: string;
+    data?: QuestionAdminVO;
+  };
+
+  type ResultQuestionUserVO = {
+    code?: number;
+    message?: string;
+    data?: QuestionUserVO;
+  };
+
+  type ResultSafetyUser = {
+    code?: number;
+    message?: string;
+    data?: SafetyUser;
+  };
+
+  type reviseUserParams = {
+    user: User;
+  };
+
+  type SafetyUser = {
+    id?: number;
+    username?: string;
+    userAccount?: string;
+    avatar?: string;
+    userRole?: number;
+    gender?: number;
+    phone?: string;
+    email?: string;
     status?: number;
-    updatedAt?: string;
-    createdAt?: string;
-    progress?: number;
+    createTime?: string;
+    updateTime?: string;
   };
 
-  type RuleList = {
-    data?: RuleListItem[];
-    /** 列表的内容总数 */
-    total?: number;
-    success?: boolean;
+  type SafetyUserDTO = {
+    id?: number;
+    username?: string;
+    userAccount?: string;
+    avatar?: string;
+    userRole?: number;
+    gender?: number;
+    phone?: string;
+    email?: string;
+    status?: number;
   };
 
-  // 登录传递的参数
-  type LoginParams = {
+  type searchUsersParams = {
+    pageSize: number;
+    current: number;
+  };
+
+  type User = {
+    id?: number;
+    username?: string;
+    userAccount?: string;
+    avatar?: string;
+    userRole?: number;
+    gender?: number;
+    password?: string;
+    phone?: string;
+    email?: string;
+    status?: number;
+    createTime?: string;
+    updateTime?: string;
+    isDelete?: number;
+  };
+
+  type UserLoginRequest = {
     userAccount?: string;
     password?: string;
   };
 
-  // 注册传递的参数
-  type RegisterParams = {
+  type UserRegisterRequest = {
     userAccount?: string;
     password?: string;
     confirmPassword?: string;
-  };
-
-  type MdProps = {
-    value?: string;
-    onValueChange;
   };
 }

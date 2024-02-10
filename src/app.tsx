@@ -1,4 +1,3 @@
-import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import {
   PageLoading,
   SettingDrawer,
@@ -8,6 +7,7 @@ import { RunTimeLayoutConfig, history } from '@umijs/max';
 import 'bytemd/dist/index.css';
 import defaultSettings from '../config/defaultSettings';
 import { AvatarDropdown, AvatarName, Footer } from './components';
+import { getCurrentUser } from './services/ant-design-pro/userController';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 const registerPath = '/user/register';
@@ -19,14 +19,14 @@ const whiteList = [loginPath, registerPath];
 // 页面刷新时自动执行
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
+  currentUser?: API.SafetyUser;
   loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchUserInfo?: () => Promise<API.SafetyUser | undefined>;
 }> {
   // async 异步函数
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser({
+      const msg = await getCurrentUser({
         skipErrorHandler: true,
       });
       return msg.data;

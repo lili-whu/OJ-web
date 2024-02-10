@@ -8,7 +8,7 @@ export default () => {
   return (
     <div>
       <MdEditor value={description} onValueChange={setDescription}></MdEditor>
-      <MdViewer value={description} onValueChange={() => {}} />
+      <MdViewer value={description} />
     </div>
   );
 };

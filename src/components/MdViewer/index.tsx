@@ -5,7 +5,7 @@ const plugins = [
   // Add more plugins here
 ];
 
-const MdViewer = (props: API.MdProps) => {
+const MdViewer = (props: { value: string }) => {
   return (
     <div>
       <Viewer value={props.value as string} plugins={plugins} />

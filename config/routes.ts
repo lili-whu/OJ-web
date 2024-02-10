@@ -22,5 +22,11 @@ export default [
       { path: '/admin/questionCreate', name: '题目创建', component: './Admin/QuestionCreate' },
     ],
   },
+  // 题目页面
+  {
+    path: '/main',
+    name: '题目页面',
+    routes: [{ path: '/main/coding', name: '做题', component: './Main/Coding' }],
+  },
   { path: '*', layout: false, component: './404' },
 ];

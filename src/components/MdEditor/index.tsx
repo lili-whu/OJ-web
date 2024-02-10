@@ -6,7 +6,7 @@ const plugins = [
   // Add more plugins here
 ];
 
-const MdEditor = (props: API.MdProps) => {
+const MdEditor = (props: { value: string; onValueChange: (arg0: string) => void }) => {
   const [value, setValue] = useState(props.value as string);
 
   return (

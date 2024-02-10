@@ -1,5 +1,5 @@
 import { Footer } from '@/components';
-import { login } from '@/services/ant-design-pro/api';
+import { userLogin } from '@/services/ant-design-pro/userController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Helmet, history, useModel } from '@umijs/max';
 import { Button, Form, Input, Tabs, Typography, message } from 'antd';
@@ -45,7 +45,7 @@ const useStyles = createStyles(({ token }) => {
 });
 
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+  const [userLoginState, setUserLoginState] = useState<API.SafetyUser>({});
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
   const fetchUserInfo = async () => {
@@ -59,10 +59,10 @@ const Login: React.FC = () => {
       });
     }
   };
-  const handleSubmit = async (values: API.LoginParams) => {
+  const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
       // 登录
-      const msg = await login({
+      const msg = await userLogin({
         ...values,
       });
       if (msg.code === 20000) {
@@ -126,7 +126,7 @@ const Login: React.FC = () => {
           size="large"
           name="loginForm"
           onFinish={async (values) => {
-            await handleSubmit(values as API.LoginParams);
+            await handleSubmit(values as API.UserLoginRequest);
           }}
         >
           <Form.Item

@@ -1,4 +1,4 @@
-import { deleteUser, search } from '@/services/ant-design-pro/api';
+import { deleteUser, searchUsers } from '@/services/ant-design-pro/userController';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { message } from 'antd';
@@ -15,7 +15,7 @@ export const waitTime = async (time: number = 100) => {
   await waitTimePromise(time);
 };
 async function deleteUserSubmit(id: number) {
-  const res = await deleteUser(id);
+  const res = await deleteUser({ id: id } as API.deleteUserParams);
   if (res.code === 20000) {
     message.success('用户删除成功');
     window.location.reload();
@@ -25,7 +25,7 @@ async function deleteUserSubmit(id: number) {
   // 发送删除请求
 }
 
-const columns: ProColumns<API.CurrentUser>[] = [
+const columns: ProColumns<API.SafetyUser>[] = [
   {
     dataIndex: 'id',
     title: 'id',
@@ -179,13 +179,13 @@ const columns: ProColumns<API.CurrentUser>[] = [
 export default () => {
   const actionRef = useRef<ActionType>();
   return (
-    <ProTable<API.CurrentUser>
+    <ProTable<API.SafetyUser>
       columns={columns}
       actionRef={actionRef}
       cardBordered
       request={async (params, sort, filter) => {
         if (params.username === '') params.username = undefined;
-        var user: API.CurrentUserDTO = {
+        var user: API.SafetyUser = {
           id: params.id,
           username: params.username,
           userAccount: params.userAccount,
@@ -196,8 +196,12 @@ export default () => {
           email: params.email,
           status: params.status,
         };
+        const p = {
+          pageSize: params.pageSize,
+          current: params.current,
+        } as API.searchUsersParams;
         // await waitTime(2000);
-        const result = await search(params.pageSize as number, params.current as number, user);
+        const result = await searchUsers(p, user);
         return {
           data: result.data?.userList,
           // success 请返回 true，

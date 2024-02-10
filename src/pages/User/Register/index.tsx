@@ -1,5 +1,5 @@
 import { Footer } from '@/components';
-import { register } from '@/services/ant-design-pro/api';
+import { userRegister } from '@/services/ant-design-pro/userController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Helmet, history, useModel } from '@umijs/max';
 import { Button, Form, Input, Tabs, message } from 'antd';
@@ -46,10 +46,10 @@ const useStyles = createStyles(({ token }) => {
 const Register: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
-  const handleSubmit = async (values: API.RegisterParams) => {
+  const handleSubmit = async (values: API.UserRegisterRequest) => {
     try {
       // 登录
-      const ret = await register({
+      const ret = await userRegister({
         ...values,
       });
       if (ret.code === 20000) {
@@ -108,7 +108,7 @@ const Register: React.FC = () => {
           size="large"
           name="registerForm"
           onFinish={async (values) => {
-            await handleSubmit(values as API.RegisterParams);
+            await handleSubmit(values as API.UserRegisterRequest);
           }}
         >
           <Form.Item
