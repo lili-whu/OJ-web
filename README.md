@@ -1,6 +1,18 @@
-# web 用户中心
+# OJ 系统前端界面
 
 使用 react,ant design pro, umi 构建的登录注册, 用户管理的 web 前端
+
+- 基础登录注册用户管理功能继承 user-center-web 项目
+
+## 2.10
+
+1. 引入 markdown 编辑 https://github.com/bytedance/bytemd 创建两个组件 MdEditor 和 MdViewer, 定义 props(值和回调函数)用于和父组件通信 plan
+1. 创建题目页面
+1. 题目内容管理页面
+1. 题目列表
+1. 题目详情/在线做题
+
+# web 用户中心
 
 ## 2.1 登录界面开发
 

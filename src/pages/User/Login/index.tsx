@@ -105,11 +105,11 @@ const Login: React.FC = () => {
               style={{ height: 50, width: 50, marginRight: 20 }}
             />
             <Title level={2} style={{ marginBottom: 0 }}>
-              lili-web
+              liOJ
             </Title>
           </div>
           <div style={{ width: '100%', textAlign: 'center', padding: '5px' }}>
-            <span style={{ fontSize: 15 }}>这是一个web项目</span>
+            <span style={{ fontSize: 15 }}>一个提升编程水平的编程平台</span>
           </div>
         </div>
 

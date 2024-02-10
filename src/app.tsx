@@ -5,6 +5,7 @@ import {
   type Settings as LayoutSettings,
 } from '@ant-design/pro-components';
 import { RunTimeLayoutConfig, history } from '@umijs/max';
+import 'bytemd/dist/index.css';
 import defaultSettings from '../config/defaultSettings';
 import { AvatarDropdown, AvatarName, Footer } from './components';
 const isDev = process.env.NODE_ENV === 'development';
