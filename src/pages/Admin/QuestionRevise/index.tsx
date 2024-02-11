@@ -1,5 +1,5 @@
 import MdEditor from '@/components/MdEditor';
-import { addQuestion } from '@/services/ant-design-pro/questionController';
+import { getAdminQuestionById, updateQuestion } from '@/services/ant-design-pro/questionController';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   Button,
@@ -16,6 +16,7 @@ import {
 import { useState } from 'react';
 
 export default () => {
+  const [id, setId] = useState<number>(0);
   const [description, setDescription] = useState('');
   const [answer, setAnswer] = useState('');
   const [difficulty, setDifficulty] = useState('easy');
@@ -23,9 +24,9 @@ export default () => {
   const [form] = Form.useForm();
 
   const options = [
-    { label: '简单', value: 'easy' },
-    { label: '普通', value: 'medium' },
-    { label: '困难', value: 'hard' },
+    { label: '简单', value: '简单' },
+    { label: '普通', value: '普通' },
+    { label: '困难', value: '困难' },
   ];
 
   const questionType = [
@@ -36,13 +37,41 @@ export default () => {
     { label: '动态规划', value: '动态规划' },
     { label: '回溯', value: '回溯' },
   ];
+  async function submitId() {
+    const data = await getAdminQuestionById({ id: id as number });
+
+    if (data.code === 20000) {
+      const question = data.data as API.QuestionAdminVO;
+      console.log(question);
+      form.setFieldsValue({
+        title: question.title,
+        memory: question.judgeConfig?.memoryLimit,
+        time: question.judgeConfig?.timeLimit,
+        stack: question.judgeConfig?.stackLimit,
+        // 注意：对于复杂结构可能需要额外处理
+      });
+
+      // 更新状态
+      setDescription(question.description as string);
+      setAnswer(question.answer as string);
+      setDifficulty(question.difficulty as string);
+      setTags(question.tags);
+      // 处理JudgeCase
+      form.setFieldsValue({
+        judgeCase: question.judgeCase,
+      });
+    } else {
+      message.error(data.message);
+    }
+  }
 
   async function handleSubmit(data: {
     title: string;
     judgeCase: API.JudgeCase[];
     judgeConfig: API.JudgeConfig;
   }) {
-    const req: API.QuestionAddRequest = {
+    const req: API.QuestionUpdateRequest = {
+      id: id,
       title: data.title,
       description: description,
       tags: tags,
@@ -54,9 +83,9 @@ export default () => {
     console.log(req);
     try {
       // 插入题目
-      const msg = await addQuestion(req);
-      if (msg.code === 20000) {
-        message.success(`题目插入成功, 题号: ${msg.data}!`);
+      const msg = await updateQuestion(req);
+      if (msg.code === 20000 && msg.data === true) {
+        message.success(`题目更新成功`);
       } else {
         // 出现错误
         message.error(msg.message);
@@ -67,6 +96,24 @@ export default () => {
   }
   return (
     <div>
+      <InputNumber
+        onChange={(value) => {
+          if (value !== null) {
+            setId(value as number);
+          }
+        }}
+        addonBefore="请输入要修改的题号"
+      />
+
+      <Button
+        type="primary"
+        onClick={() => submitId()}
+        htmlType="submit"
+        style={{ marginLeft: '20px', width: '100px' }}
+      >
+        提交题号
+      </Button>
+
       <Card>
         <Form
           labelCol={{ span: 6 }}
@@ -109,6 +156,7 @@ export default () => {
           <Form.Item label="难度">
             <Radio.Group
               options={options}
+              value={difficulty}
               onChange={(event) => {
                 setDifficulty(event.target.value);
               }}
@@ -119,6 +167,7 @@ export default () => {
           <Form.Item label="类型">
             <Checkbox.Group
               options={questionType}
+              value={tags}
               onChange={(checedValue) => {
                 setTags(checedValue);
               }}
@@ -185,7 +234,7 @@ export default () => {
             }}
           >
             <Button type="primary" htmlType="submit" style={{ width: '100px' }}>
-              提交新题目
+              提交修改
             </Button>
           </Form.Item>
         </Form>

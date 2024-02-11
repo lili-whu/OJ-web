@@ -47,20 +47,15 @@ export default () => {
         <Typography.Title level={4} style={{ marginTop: '20px' }}>
           判题限制
         </Typography.Title>
-        <Typography.Text color="green">
-          内存限制: {questionUserVO?.judgeConfig?.memoryLimit}MB
-        </Typography.Text>
+        <Typography.Text>内存限制: {questionUserVO?.judgeConfig?.memoryLimit}MB</Typography.Text>
         <br />
-        <Typography.Text color="green">
-          时间限制: {questionUserVO?.judgeConfig?.timeLimit}ms
-        </Typography.Text>
+        <Typography.Text>时间限制: {questionUserVO?.judgeConfig?.timeLimit}ms</Typography.Text>
         <br />
-        <Typography.Text color="green">
-          堆栈限制: {questionUserVO?.judgeConfig?.stackLimit}MB
-        </Typography.Text>
+        <Typography.Text>堆栈限制: {questionUserVO?.judgeConfig?.stackLimit}MB</Typography.Text>
         <Typography.Title level={4} style={{ marginTop: '20px' }}>
           题目标签
         </Typography.Title>
+        <Typography.Text>{questionUserVO?.tags?.join(', ')}</Typography.Text>
       </Card>
       <CodeEditor value={code} onValueChange={setCode}></CodeEditor>
     </div>

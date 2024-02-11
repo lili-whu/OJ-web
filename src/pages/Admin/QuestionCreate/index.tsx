@@ -23,9 +23,9 @@ export default () => {
   const [form] = Form.useForm();
 
   const options = [
-    { label: '简单', value: 'easy' },
-    { label: '普通', value: 'medium' },
-    { label: '困难', value: 'hard' },
+    { label: '简单', value: '简单' },
+    { label: '普通', value: '普通' },
+    { label: '困难', value: '困难' },
   ];
 
   const questionType = [
