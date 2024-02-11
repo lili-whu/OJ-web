@@ -1,63 +1,103 @@
 import CodeEditor from '@/components/CodeEditor';
-import MdViewer from '@/components/MdViewer';
-import { getUserQuestionById } from '@/services/ant-design-pro/questionController';
-import { history } from '@umijs/max';
-import { Card, Typography, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { Outlet, history } from '@umijs/max';
+import { Card, Col, Menu, MenuProps, Row, Select, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+
+const baseStyle: React.CSSProperties = {
+  width: '50%',
+  // height: "100vh",
+};
+
+const items: MenuProps['items'] = [
+  {
+    label: '解题',
+    key: 'solve',
+  },
+  {
+    label: '题解',
+    key: 'answer',
+  },
+  {
+    label: '提交记录',
+    key: 'record',
+  },
+];
 
 export default () => {
+  const [lang, setLang] = useState('Java');
+  const [currentId, setCurrentId] = useState(0);
+  const [codeBack, setCodeBack] = useState('light');
   const [code, setCode] = useState('');
   const [questionUserVO, setQuestionUserVO] = useState<API.QuestionUserVO | undefined>();
-  console.log(window.location.href.split('?id=')[1]);
+
+  const [current, setCurrent] = useState('solve');
+
+  const onClick: MenuProps['onClick'] = (e) => {
+    console.log('click ', e);
+    history.push(`/main/coding/${e.key}?id=${currentId}`);
+    setCurrent(e.key);
+  };
 
   useEffect(() => {
-    const getQuestion = async () => {
-      // 使用URLSearchParams来提取查询参数
-      const queryParams = new URLSearchParams(window.location.search);
-      const id = queryParams.get('id'); // 获取id参数
+    const queryParams = new URLSearchParams(location.search);
+    const id = queryParams.get('id');
+    if (!id) {
+      message.error('请选择题目');
+      history.push('/main/questionList');
+    } else {
+      setCurrentId(Number(id));
+      const pathSegments = window.location.pathname.split('/');
+      if (
+        !pathSegments.includes('solve') &&
+        !pathSegments.includes('answer') &&
+        !pathSegments.includes('record')
+      ) {
+        history.push(`/main/coding/solve?id=${id}`);
+      }
+    }
+  }, [window.location.search]); // 依赖于navigate和查询字符串的变化
 
-      if (!id) {
-        console.error('ID is missing from the URL');
-        message.error('请选择题目');
-        history.push('/main/questionList');
-        return;
-      }
-      const body = { id: Number(id) };
-      try {
-        const result = await getUserQuestionById(body);
-        setQuestionUserVO(result.data);
-        console.log(questionUserVO);
-      } catch (error) {
-        console.error('发生错误', error);
-      }
-    };
-    getQuestion();
-  }, [window.location.search]);
   return (
     <div>
-      <Card>
-        <Typography.Title level={4}>{questionUserVO?.title}</Typography.Title>
-        {/* <Typography.Title level={5}>难度</Typography.Title> */}
-        <Typography.Text>{questionUserVO?.difficulty}</Typography.Text>
-        <Typography.Title level={4}>具体描述</Typography.Title>
-        <MdViewer value={questionUserVO?.description as string} />
-        <Typography.Title level={4} style={{ marginTop: '20px' }}>
-          测试用例
-        </Typography.Title>
-        <Typography.Title level={4} style={{ marginTop: '20px' }}>
-          判题限制
-        </Typography.Title>
-        <Typography.Text>内存限制: {questionUserVO?.judgeConfig?.memoryLimit}MB</Typography.Text>
-        <br />
-        <Typography.Text>时间限制: {questionUserVO?.judgeConfig?.timeLimit}ms</Typography.Text>
-        <br />
-        <Typography.Text>堆栈限制: {questionUserVO?.judgeConfig?.stackLimit}MB</Typography.Text>
-        <Typography.Title level={4} style={{ marginTop: '20px' }}>
-          题目标签
-        </Typography.Title>
-        <Typography.Text>{questionUserVO?.tags?.join(', ')}</Typography.Text>
-      </Card>
-      <CodeEditor value={code} onValueChange={setCode}></CodeEditor>
+      <Row gutter={[64, 64]}>
+        <Col span={12} style={{ minHeight: '100vh' }}>
+          <Card style={{ minHeight: '100vh' }}>
+            <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+            <Outlet />
+          </Card>
+        </Col>
+        <Col span={12} style={{ minHeight: '100vh' }}>
+          <div style={{ textAlign: 'end' }}>
+            <Select
+              defaultValue="light"
+              style={{ width: 120, marginRight: '20px', marginBottom: '20px', textAlign: 'left' }}
+              value={codeBack}
+              onChange={setCodeBack}
+              options={[
+                { value: 'light', label: 'light' },
+                { value: 'vs-dark', label: 'vs-dark' },
+              ]}
+            />
+            <Select
+              defaultValue="Java"
+              style={{ width: 120, marginBottom: '20px', textAlign: 'left' }}
+              value={lang}
+              onChange={setLang}
+              options={[
+                { value: 'Java', label: 'Java' },
+                { value: 'C++', label: 'C++' },
+                { value: 'Golang', label: 'Golang' },
+              ]}
+            />
+          </div>
+          <CodeEditor
+            codeBack={codeBack}
+            lang={lang}
+            value={code}
+            onValueChange={setCode}
+          ></CodeEditor>
+        </Col>
+      </Row>
     </div>
   );
 };

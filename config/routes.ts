@@ -27,8 +27,35 @@ export default [
   {
     path: '/main',
     name: '题目页面',
+
     routes: [
-      { path: '/main/coding/', name: '做题', component: './Main/Coding' },
+      {
+        path: '/main/coding/',
+        name: '解题主界面',
+        component: './Main/Coding/',
+
+        routes: [
+          {
+            path: '/main/coding/solve',
+            name: '解题',
+            component: './Main/Coding/Solve',
+            hideInMenu: true,
+          },
+          {
+            path: '/main/coding/answer',
+            name: '题解',
+            component: './Main/Coding/Answer',
+            hideInMenu: true,
+          },
+          {
+            path: '/main/coding/record',
+            name: '提交记录',
+            component: './Main/Coding/Record',
+            hideInMenu: true,
+          },
+        ],
+      },
+
       { path: '/main/questionList', name: '题目列表', component: './Main/QuestionList' },
     ],
   },
