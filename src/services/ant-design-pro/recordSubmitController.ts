@@ -22,7 +22,7 @@ export async function getRecordSubmitPage(
   body: API.RecordSubmitQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResultListRecordSubmitVO>('/api/record/page', {
+  return request<API.ResultPageResultRecordSubmitVO>('/api/record/page', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

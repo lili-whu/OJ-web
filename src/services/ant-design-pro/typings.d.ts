@@ -32,6 +32,21 @@ declare namespace API {
     timeConsume?: number;
   };
 
+  type PageResultQuestionAdminVO = {
+    total?: number;
+    listResult?: QuestionAdminVO[];
+  };
+
+  type PageResultQuestionUserVO = {
+    total?: number;
+    listResult?: QuestionUserVO[];
+  };
+
+  type PageResultRecordSubmitVO = {
+    total?: number;
+    listResult?: RecordSubmitVO[];
+  };
+
   type PageSafetyUserVO = {
     total?: number;
     userList?: SafetyUser[];
@@ -42,6 +57,7 @@ declare namespace API {
     description?: string;
     tags?: string[];
     answer?: string;
+    difficulty?: string;
     judgeCase?: JudgeCase[];
     judgeConfig?: JudgeConfig;
   };
@@ -52,6 +68,7 @@ declare namespace API {
     id?: number;
     title?: string;
     description?: string;
+    difficulty?: string;
     tags?: string[];
     answer?: string;
     judgeCase?: JudgeCase[];
@@ -72,6 +89,7 @@ declare namespace API {
     sortOrder?: string;
     id?: number;
     title?: string;
+    difficulty?: string;
     description?: string;
     tags?: string[];
     answer?: string;
@@ -82,6 +100,7 @@ declare namespace API {
     id?: number;
     title?: string;
     description?: string;
+    difficulty?: string;
     tags?: string[];
     answer?: string;
     judgeCase?: JudgeCase[];
@@ -95,6 +114,7 @@ declare namespace API {
     title?: string;
     description?: string;
     tags?: string[];
+    difficulty?: string;
     answer?: string;
     judgeConfig?: JudgeConfig;
     submitNum?: number;
@@ -149,28 +169,28 @@ declare namespace API {
     data?: number;
   };
 
-  type ResultListQuestionAdminVO = {
-    code?: number;
-    message?: string;
-    data?: QuestionAdminVO[];
-  };
-
-  type ResultListQuestionUserVO = {
-    code?: number;
-    message?: string;
-    data?: QuestionUserVO[];
-  };
-
-  type ResultListRecordSubmitVO = {
-    code?: number;
-    message?: string;
-    data?: RecordSubmitVO[];
-  };
-
   type ResultLong = {
     code?: number;
     message?: string;
     data?: number;
+  };
+
+  type ResultPageResultQuestionAdminVO = {
+    code?: number;
+    message?: string;
+    data?: PageResultQuestionAdminVO;
+  };
+
+  type ResultPageResultQuestionUserVO = {
+    code?: number;
+    message?: string;
+    data?: PageResultQuestionUserVO;
+  };
+
+  type ResultPageResultRecordSubmitVO = {
+    code?: number;
+    message?: string;
+    data?: PageResultRecordSubmitVO;
   };
 
   type ResultPageSafetyUserVO = {

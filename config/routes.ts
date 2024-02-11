@@ -20,6 +20,7 @@ export default [
     routes: [
       { path: '/admin/userManage', name: '用户管理', component: './Admin/UserManage' },
       { path: '/admin/questionCreate', name: '题目创建', component: './Admin/QuestionCreate' },
+      { path: '/admin/questionRevise', name: '题目修改', component: './Admin/QuestionRevise' },
     ],
   },
   // 题目页面
@@ -27,7 +28,7 @@ export default [
     path: '/main',
     name: '题目页面',
     routes: [
-      { path: '/main/coding', name: '做题', component: './Main/Coding' },
+      { path: '/main/coding/', name: '做题', component: './Main/Coding' },
       { path: '/main/questionList', name: '题目列表', component: './Main/QuestionList' },
     ],
   },

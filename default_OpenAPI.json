@@ -209,7 +209,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResultListRecordSubmitVO"
+                  "$ref": "#/components/schemas/ResultPageResultRecordSubmitVO"
                 }
               }
             }
@@ -265,7 +265,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResultListQuestionUserVO"
+                  "$ref": "#/components/schemas/ResultPageResultQuestionUserVO"
                 }
               }
             }
@@ -293,7 +293,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResultListQuestionAdminVO"
+                  "$ref": "#/components/schemas/ResultPageResultQuestionAdminVO"
                 }
               }
             }
@@ -573,6 +573,9 @@
           "description": {
             "type": "string"
           },
+          "difficulty": {
+            "type": "string"
+          },
           "tags": {
             "type": "array",
             "items": {
@@ -664,53 +667,42 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "username": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "userAccount": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "avatar": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "userRole": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "gender": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "phone": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "status": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "createTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           },
           "updateTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           }
         }
       },
@@ -764,12 +756,10 @@
         "type": "object",
         "properties": {
           "userAccount": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "password": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           }
         }
       },
@@ -839,6 +829,21 @@
           }
         }
       },
+      "PageResultRecordSubmitVO": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "listResult": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecordSubmitVO"
+            }
+          }
+        }
+      },
       "QuestionUserVO": {
         "type": "object",
         "properties": {
@@ -863,6 +868,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "difficulty": {
+            "type": "string"
           },
           "answer": {
             "type": "string"
@@ -945,7 +953,7 @@
           }
         }
       },
-      "ResultListRecordSubmitVO": {
+      "ResultPageResultRecordSubmitVO": {
         "type": "object",
         "properties": {
           "code": {
@@ -956,10 +964,7 @@
             "type": "string"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecordSubmitVO"
-            }
+            "$ref": "#/components/schemas/PageResultRecordSubmitVO"
           }
         }
       },
@@ -1003,6 +1008,9 @@
           "title": {
             "type": "string"
           },
+          "difficulty": {
+            "type": "string"
+          },
           "description": {
             "type": "string"
           },
@@ -1021,7 +1029,22 @@
           }
         }
       },
-      "ResultListQuestionUserVO": {
+      "PageResultQuestionUserVO": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "listResult": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionUserVO"
+            }
+          }
+        }
+      },
+      "ResultPageResultQuestionUserVO": {
         "type": "object",
         "properties": {
           "code": {
@@ -1032,9 +1055,21 @@
             "type": "string"
           },
           "data": {
+            "$ref": "#/components/schemas/PageResultQuestionUserVO"
+          }
+        }
+      },
+      "PageResultQuestionAdminVO": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "listResult": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/QuestionUserVO"
+              "$ref": "#/components/schemas/QuestionAdminVO"
             }
           }
         }
@@ -1056,6 +1091,9 @@
             "type": "string"
           },
           "description": {
+            "type": "string"
+          },
+          "difficulty": {
             "type": "string"
           },
           "tags": {
@@ -1106,7 +1144,7 @@
           }
         }
       },
-      "ResultListQuestionAdminVO": {
+      "ResultPageResultQuestionAdminVO": {
         "type": "object",
         "properties": {
           "code": {
@@ -1117,10 +1155,7 @@
             "type": "string"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/QuestionAdminVO"
-            }
+            "$ref": "#/components/schemas/PageResultQuestionAdminVO"
           }
         }
       },
@@ -1140,6 +1175,9 @@
             }
           },
           "answer": {
+            "type": "string"
+          },
+          "difficulty": {
             "type": "string"
           },
           "judgeCase": {

@@ -33,7 +33,7 @@ export async function getQuestionsByAdmin(
   body: API.QuestionQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResultListQuestionAdminVO>('/api/question/admin/page', {
+  return request<API.ResultPageResultQuestionAdminVO>('/api/question/admin/page', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export async function getQuestionsByUser(
   body: API.QuestionQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResultListQuestionUserVO>('/api/question/user/page', {
+  return request<API.ResultPageResultQuestionUserVO>('/api/question/user/page', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
