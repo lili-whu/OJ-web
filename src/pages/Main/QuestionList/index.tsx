@@ -1,6 +1,6 @@
 import { getQuestionsByUser } from '@/services/ant-design-pro/questionController';
 import type { TableProps } from 'antd';
-import { Button, Checkbox, Input, InputNumber, Radio, Table, Typography } from 'antd';
+import { Button, Checkbox, Input, InputNumber, Radio, Table, Tag, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 
 const columns: TableProps<API.QuestionUserVO>['columns'] = [
@@ -8,8 +8,17 @@ const columns: TableProps<API.QuestionUserVO>['columns'] = [
 
   {
     title: '做题状态',
-    dataIndex: 'status',
-    key: 'status',
+    dataIndex: 'submitStatus',
+    key: 'submitStatus',
+    render: (text, record, index) => (
+      // 使用&&表达式, 条件为真时渲染后半部分
+      <div>
+        {record.submitStatus === 'ACCEPTED' && <Tag color="green">{record.submitStatus}</Tag>}
+        {record.submitStatus !== undefined && record.submitStatus !== 'ACCEPTED' && (
+          <Tag color="red">{record.submitStatus}</Tag>
+        )}
+      </div>
+    ),
     width: 144,
   },
   {
@@ -20,16 +29,34 @@ const columns: TableProps<API.QuestionUserVO>['columns'] = [
     width: 72,
   },
   {
+    title: '标签',
+    dataIndex: 'tags',
+    key: 'tags',
+    render: (text, record, index) => (
+      // 使用&&表达式, 条件为真时渲染后半部分
+      <div>
+        {record.tags?.[0] !== undefined && <Tag color="blue">{record.tags?.[0]}</Tag>}
+        {record.tags?.[1] !== undefined && <Tag color="green">{record.tags?.[1]}</Tag>}
+        {record.tags?.[2] !== undefined && <Tag color="purple">{record.tags?.[2]}</Tag>}
+        {record.tags?.[3] !== undefined && <Tag color="red">{record.tags?.[3]}</Tag>}
+      </div>
+    ),
+    width: 256,
+  },
+  {
     title: '标题',
     dataIndex: 'title',
     key: 'title',
     width: 288,
-    render: (text, record, index) => <a href={`/main/coding?id=${record.id}`}>{text}</a>,
+    render: (text, record, index) => <a href={`/main/coding/solve?id=${record.id}`}>{text}</a>,
   },
   {
     title: '难度',
     dataIndex: 'difficulty',
     key: 'difficulty',
+    render: (text, record, index) => (
+      <div>{record.difficulty !== undefined && <Tag color="green">{record.difficulty}</Tag>}</div>
+    ),
     width: 108,
   },
   {

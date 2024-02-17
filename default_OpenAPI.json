@@ -548,15 +548,13 @@
         "properties": {
           "timeLimit": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           },
           "memoryLimit": {
             "type": "integer",
-            "format": "int64"
-          },
-          "stackLimit": {
-            "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           }
         }
       },
@@ -667,42 +665,53 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           },
           "username": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "userAccount": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "avatar": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "userRole": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "gender": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "phone": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "status": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "createTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "refType": null
           },
           "updateTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "refType": null
           }
         }
       },
@@ -741,14 +750,17 @@
         "properties": {
           "code": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "data": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           }
         }
       },
@@ -783,33 +795,41 @@
         "properties": {
           "current": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "pageSize": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "sortField": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "sortOrder": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "language": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
-          "resultStatus": {
+          "result": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "questionId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           },
           "createId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           }
         }
       },
@@ -817,15 +837,22 @@
         "type": "object",
         "properties": {
           "message": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "memoryConsume": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           },
           "timeConsume": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
+          },
+          "detailMessage": {
+            "type": "string",
+            "refType": null
           }
         }
       },
@@ -844,112 +871,55 @@
           }
         }
       },
-      "QuestionUserVO": {
-        "type": "object",
-        "properties": {
-          "avatar": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "difficulty": {
-            "type": "string"
-          },
-          "answer": {
-            "type": "string"
-          },
-          "judgeConfig": {
-            "$ref": "#/components/schemas/JudgeConfig"
-          },
-          "submitNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "acceptNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "thumbNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "favorNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "createId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updateTime": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
       "RecordSubmitVO": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           },
           "language": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "code": {
-            "type": "string"
+            "type": "string",
+            "refType": null
           },
           "judgeInfo": {
-            "$ref": "#/components/schemas/JudgeInfo"
+            "$ref": "#/components/schemas/JudgeInfo",
+            "refType": "JudgeInfo"
           },
           "status": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "refType": null
           },
           "questionId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           },
           "createId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "refType": null
           },
           "createTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "refType": null
           },
           "updateTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "refType": null
           },
           "safetyUser": {
-            "$ref": "#/components/schemas/SafetyUser"
-          },
-          "questionUserVO": {
-            "$ref": "#/components/schemas/QuestionUserVO"
+            "$ref": "#/components/schemas/SafetyUser",
+            "refType": "SafetyUser"
           }
         }
       },
@@ -1041,6 +1011,97 @@
             "items": {
               "$ref": "#/components/schemas/QuestionUserVO"
             }
+          }
+        }
+      },
+      "QuestionUserVO": {
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "string",
+            "refType": null
+          },
+          "username": {
+            "type": "string",
+            "refType": null
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "title": {
+            "type": "string",
+            "refType": null
+          },
+          "description": {
+            "type": "string",
+            "refType": null
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "refType": "string"
+          },
+          "difficulty": {
+            "type": "string",
+            "refType": null
+          },
+          "answer": {
+            "type": "string",
+            "refType": null
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig",
+            "refType": "JudgeConfig"
+          },
+          "recordSubmitVOList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecordSubmitVO"
+            },
+            "refType": "RecordSubmitVO"
+          },
+          "submitStatus": {
+            "type": "string",
+            "refType": null
+          },
+          "submitNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "acceptNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "thumbNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "favorNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "createId": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "refType": null
           }
         }
       },

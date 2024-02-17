@@ -8,7 +8,7 @@ export default [
     ],
   },
   // 系统首页, 未登录自动跳转到登录界面
-  // { path: '/', redirect: '/' },
+  { path: '/', redirect: '/main/questionList' },
 
   // 管理界面的侧边栏直接读取的这个路由下的内容
   {

@@ -78,7 +78,6 @@ export default () => {
             var judgeConfig: API.JudgeConfig = {
               timeLimit: data.time,
               memoryLimit: data.memory,
-              stackLimit: data.stack,
             };
             data.judgeConfig = judgeConfig;
             handleSubmit(data);
@@ -170,13 +169,10 @@ export default () => {
             判题限制
           </Typography.Title>
           <Form.Item label="内存限制" name="memory">
-            <InputNumber addonAfter="MB" />
+            <InputNumber addonAfter="byte" />
           </Form.Item>
           <Form.Item label="时间限制" name="time">
             <InputNumber addonAfter="ms" />
-          </Form.Item>
-          <Form.Item label="堆栈限制" name="stack">
-            <InputNumber addonAfter="MB" />
           </Form.Item>
 
           <Form.Item

@@ -23,13 +23,13 @@ declare namespace API {
   type JudgeConfig = {
     timeLimit?: number;
     memoryLimit?: number;
-    stackLimit?: number;
   };
 
   type JudgeInfo = {
     message?: string;
     memoryConsume?: number;
     timeConsume?: number;
+    detailMessage?: string;
   };
 
   type PageResultQuestionAdminVO = {
@@ -117,6 +117,8 @@ declare namespace API {
     difficulty?: string;
     answer?: string;
     judgeConfig?: JudgeConfig;
+    recordSubmitVOList?: RecordSubmitVO[];
+    submitStatus?: string;
     submitNum?: number;
     acceptNum?: number;
     thumbNum?: number;
@@ -138,7 +140,7 @@ declare namespace API {
     sortField?: string;
     sortOrder?: string;
     language?: number;
-    resultStatus?: number;
+    result?: number;
     questionId?: number;
     createId?: number;
   };
@@ -154,7 +156,6 @@ declare namespace API {
     createTime?: string;
     updateTime?: string;
     safetyUser?: SafetyUser;
-    questionUserVO?: QuestionUserVO;
   };
 
   type ResultBoolean = {
