@@ -11,20 +11,48 @@
     }
   ],
   "paths": {
-    "/api/user/revise": {
+    "/api/user/revise/user": {
+      "put": {
+        "tags": ["user-controller"],
+        "operationId": "reviseUserByUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafetyUserDTOByUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/revise/": {
       "put": {
         "tags": ["user-controller"],
         "operationId": "reviseUser",
-        "parameters": [
-          {
-            "name": "user",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/User"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafetyUserDTO"
+              }
             }
-          }
-        ],
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -182,6 +210,35 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ResultSafetyUser"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/upload": {
+      "post": {
+        "tags": ["upload"],
+        "operationId": "fileUpload",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultString"
                 }
               }
             }
@@ -347,6 +404,35 @@
         }
       }
     },
+    "/api/record/{id}": {
+      "get": {
+        "tags": ["record-submit-controller"],
+        "operationId": "getRecordSubmit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultRecordSubmitVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/question/user/{id}": {
       "get": {
         "tags": ["question-controller"],
@@ -466,13 +552,9 @@
   },
   "components": {
     "schemas": {
-      "User": {
+      "SafetyUserDTOByUser": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
           "username": {
             "type": "string"
           },
@@ -482,38 +564,15 @@
           "avatar": {
             "type": "string"
           },
-          "userRole": {
-            "type": "integer",
-            "format": "int32"
-          },
           "gender": {
             "type": "integer",
             "format": "int32"
-          },
-          "password": {
-            "type": "string"
           },
           "phone": {
             "type": "string"
           },
           "email": {
             "type": "string"
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "createTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isDelete": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
@@ -529,68 +588,6 @@
           },
           "data": {
             "type": "boolean"
-          }
-        }
-      },
-      "JudgeCase": {
-        "type": "object",
-        "properties": {
-          "input": {
-            "type": "string"
-          },
-          "output": {
-            "type": "string"
-          }
-        }
-      },
-      "JudgeConfig": {
-        "type": "object",
-        "properties": {
-          "timeLimit": {
-            "type": "integer",
-            "format": "int64",
-            "refType": null
-          },
-          "memoryLimit": {
-            "type": "integer",
-            "format": "int64",
-            "refType": null
-          }
-        }
-      },
-      "QuestionUpdateRequest": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "difficulty": {
-            "type": "string"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "answer": {
-            "type": "string"
-          },
-          "judgeCase": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/JudgeCase"
-            }
-          },
-          "judgeConfig": {
-            "$ref": "#/components/schemas/JudgeConfig"
           }
         }
       },
@@ -630,6 +627,66 @@
           }
         }
       },
+      "JudgeCase": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          }
+        }
+      },
+      "JudgeConfig": {
+        "type": "object",
+        "properties": {
+          "timeLimit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "memoryLimit": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "QuestionUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "difficulty": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "string"
+          },
+          "judgeCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JudgeCase"
+            }
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig"
+          }
+        }
+      },
       "PageSafetyUserVO": {
         "type": "object",
         "properties": {
@@ -665,53 +722,42 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "username": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "userAccount": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "avatar": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "userRole": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "gender": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "phone": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "status": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "createTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           },
           "updateTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           }
         }
       },
@@ -750,17 +796,14 @@
         "properties": {
           "code": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "message": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "data": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           }
         }
       },
@@ -790,46 +833,53 @@
           }
         }
       },
+      "ResultString": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          }
+        }
+      },
       "RecordSubmitQueryRequest": {
         "type": "object",
         "properties": {
           "current": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "pageSize": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "sortField": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "sortOrder": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "language": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "result": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "questionId": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "createId": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           }
         }
       },
@@ -837,22 +887,18 @@
         "type": "object",
         "properties": {
           "message": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "memoryConsume": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "timeConsume": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "detailMessage": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           }
         }
       },
@@ -876,50 +922,40 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "language": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "code": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "judgeInfo": {
-            "$ref": "#/components/schemas/JudgeInfo",
-            "refType": "JudgeInfo"
+            "$ref": "#/components/schemas/JudgeInfo"
           },
           "status": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "questionId": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "createId": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "createTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           },
           "updateTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           },
           "safetyUser": {
-            "$ref": "#/components/schemas/SafetyUser",
-            "refType": "SafetyUser"
+            "$ref": "#/components/schemas/SafetyUser"
           }
         }
       },
@@ -1018,90 +1054,72 @@
         "type": "object",
         "properties": {
           "avatar": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "username": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "id": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "title": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "tags": {
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "refType": "string"
+            }
           },
           "difficulty": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "answer": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "judgeConfig": {
-            "$ref": "#/components/schemas/JudgeConfig",
-            "refType": "JudgeConfig"
+            "$ref": "#/components/schemas/JudgeConfig"
           },
           "recordSubmitVOList": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecordSubmitVO"
-            },
-            "refType": "RecordSubmitVO"
+            }
           },
           "submitStatus": {
-            "type": "string",
-            "refType": null
+            "type": "string"
           },
           "submitNum": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "acceptNum": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "thumbNum": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "favorNum": {
             "type": "integer",
-            "format": "int32",
-            "refType": null
+            "format": "int32"
           },
           "createId": {
             "type": "integer",
-            "format": "int64",
-            "refType": null
+            "format": "int64"
           },
           "createTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           },
           "updateTime": {
             "type": "string",
-            "format": "date-time",
-            "refType": null
+            "format": "date-time"
           }
         }
       },
@@ -1249,6 +1267,21 @@
           },
           "judgeConfig": {
             "$ref": "#/components/schemas/JudgeConfig"
+          }
+        }
+      },
+      "ResultRecordSubmitVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/RecordSubmitVO"
           }
         }
       },

@@ -59,19 +59,29 @@ export async function userRegister(
   });
 }
 
-/** 此处后端没有提供注释 PUT /api/user/revise */
-export async function reviseUser(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.reviseUserParams,
+/** 此处后端没有提供注释 PUT /api/user/revise/ */
+export async function reviseUser(body: API.SafetyUserDTO, options?: { [key: string]: any }) {
+  return request<API.ResultBoolean>('/api/user/revise/', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 此处后端没有提供注释 PUT /api/user/revise/user */
+export async function reviseUserByUser(
+  body: API.SafetyUserDTOByUser,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResultBoolean>('/api/user/revise', {
+  return request<API.ResultBoolean>('/api/user/revise/user', {
     method: 'PUT',
-    params: {
-      ...params,
-      user: undefined,
-      ...params['user'],
+    headers: {
+      'Content-Type': 'application/json',
     },
+    data: body,
     ...(options || {}),
   });
 }

@@ -7,7 +7,15 @@ declare namespace API {
     id: number;
   };
 
+  type fileUploadParams = {
+    file: string;
+  };
+
   type getAdminQuestionByIdParams = {
+    id: number;
+  };
+
+  type getRecordSubmitParams = {
     id: number;
   };
 
@@ -212,14 +220,22 @@ declare namespace API {
     data?: QuestionUserVO;
   };
 
+  type ResultRecordSubmitVO = {
+    code?: number;
+    message?: string;
+    data?: RecordSubmitVO;
+  };
+
   type ResultSafetyUser = {
     code?: number;
     message?: string;
     data?: SafetyUser;
   };
 
-  type reviseUserParams = {
-    user: User;
+  type ResultString = {
+    code?: number;
+    message?: string;
+    data?: string;
   };
 
   type SafetyUser = {
@@ -248,25 +264,18 @@ declare namespace API {
     status?: number;
   };
 
-  type searchUsersParams = {
-    pageSize: number;
-    current: number;
-  };
-
-  type User = {
-    id?: number;
+  type SafetyUserDTOByUser = {
     username?: string;
     userAccount?: string;
     avatar?: string;
-    userRole?: number;
     gender?: number;
-    password?: string;
     phone?: string;
     email?: string;
-    status?: number;
-    createTime?: string;
-    updateTime?: string;
-    isDelete?: number;
+  };
+
+  type searchUsersParams = {
+    pageSize: number;
+    current: number;
   };
 
   type UserLoginRequest = {

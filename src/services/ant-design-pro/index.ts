@@ -4,9 +4,11 @@
 // API 唯一标识：
 import * as questionController from './questionController';
 import * as recordSubmitController from './recordSubmitController';
+import * as upload from './upload';
 import * as userController from './userController';
 export default {
   userController,
   questionController,
+  upload,
   recordSubmitController,
 };

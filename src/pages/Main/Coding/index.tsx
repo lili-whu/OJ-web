@@ -2,7 +2,7 @@ import CodeEditor from '@/components/CodeEditor';
 import { getUserQuestionById } from '@/services/ant-design-pro/questionController';
 import { recordSubmit } from '@/services/ant-design-pro/recordSubmitController';
 import { Outlet, history } from '@umijs/max';
-import { Button, Card, Col, Menu, MenuProps, Row, Select, Tag, message } from 'antd';
+import { Button, Card, Col, Menu, MenuProps, Row, Select, Tag, Typography, message } from 'antd';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const baseStyle: React.CSSProperties = {
@@ -47,6 +47,7 @@ const CodeProvider: React.FC<CodeProviderProps> = ({ children, value }) => (
 export default () => {
   const [lang, setLang] = useState(1);
   const [currentId, setCurrentId] = useState(0);
+  const [error, setError] = useState<string | undefined>('');
   const [codeBack, setCodeBack] = useState('light');
   const [code, setCode] = useState('');
   const [submitStatus, setSubmitStatus] = useState<string | undefined>('');
@@ -104,8 +105,9 @@ export default () => {
           if (code === '') {
             console.log(data?.recordSubmitVOList?.[LastIndex].code);
             setCode(data?.recordSubmitVOList?.[LastIndex].code as string);
-            setSubmitStatus(data?.recordSubmitVOList?.[LastIndex].judgeInfo?.message);
           }
+          setSubmitStatus(data?.recordSubmitVOList?.[LastIndex].judgeInfo?.message);
+          setError(data?.recordSubmitVOList?.[LastIndex].judgeInfo?.detailMessage);
         } catch (error) {
           console.error('发生错误', error);
         }
@@ -126,8 +128,8 @@ export default () => {
 
   return (
     <div>
-      <Row gutter={[64, 64]}>
-        <Col span={12} style={{ minHeight: '100vh' }}>
+      <Row gutter={[16, 16]}>
+        <Col span={11} style={{ minHeight: '100vh' }}>
           <Card style={{ minHeight: '100vh' }}>
             <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
             <CodeProvider value={contextValue}>
@@ -136,7 +138,7 @@ export default () => {
             </CodeProvider>
           </Card>
         </Col>
-        <Col span={12} style={{ minHeight: '100vh' }}>
+        <Col span={13} style={{ minHeight: '100vh' }}>
           <div style={{ textAlign: 'end' }}>
             <Select
               defaultValue="light"
@@ -166,14 +168,6 @@ export default () => {
             value={code}
             onValueChange={setCode}
           ></CodeEditor>
-          {/* <Button
-        type="primary"
-        htmlType="submit"
-        onClick={testCode}
-        style={{ width: '100px', marginTop: '10px' }}
-      >
-        测试
-      </Button> */}
           <Button
             type="primary"
             htmlType="submit"
@@ -209,6 +203,9 @@ export default () => {
               {submitStatus}
             </Tag>
           )}
+          <Card>
+            <Typography.Text type="danger">{error}</Typography.Text>
+          </Card>
         </Col>
       </Row>
     </div>

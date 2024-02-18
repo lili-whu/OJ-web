@@ -10,30 +10,15 @@ export default [
   // 系统首页, 未登录自动跳转到登录界面
   { path: '/', redirect: '/main/questionList' },
 
-  // 管理界面的侧边栏直接读取的这个路由下的内容
-  {
-    path: '/admin',
-    name: '管理页',
-    icon: 'crown',
-    component: './Admin',
-    access: 'canAdmin', // 对应access, 只有管理员能查看的界面
-    routes: [
-      { path: '/admin/userManage', name: '用户管理', component: './Admin/UserManage' },
-      { path: '/admin/questionCreate', name: '题目创建', component: './Admin/QuestionCreate' },
-      { path: '/admin/questionRevise', name: '题目修改', component: './Admin/QuestionRevise' },
-    ],
-  },
   // 题目页面
   {
     path: '/main',
     name: '题目页面',
-
     routes: [
       {
         path: '/main/coding/',
         name: '解题主界面',
         component: './Main/Coding/',
-
         routes: [
           {
             path: '/main/coding/solve',
@@ -55,8 +40,30 @@ export default [
           },
         ],
       },
-
       { path: '/main/questionList', name: '题目列表', component: './Main/QuestionList' },
+    ],
+  },
+  { path: '/detail', name: '解题详情', component: './Detail', hideInMenu: true },
+
+  // 管理界面的侧边栏直接读取的这个路由下的内容
+  {
+    path: '/admin',
+    name: '管理员页面',
+    component: './Admin',
+    access: 'canAdmin', // 对应access, 只有管理员能查看的界面
+    routes: [
+      { path: '/admin/userManage', name: '用户管理', component: './Admin/UserManage' },
+      { path: '/admin/questionCreate', name: '题目创建', component: './Admin/QuestionCreate' },
+      { path: '/admin/questionRevise', name: '题目修改', component: './Admin/QuestionRevise' },
+    ],
+  },
+
+  {
+    path: '/info',
+    name: '用户信息统计',
+    routes: [
+      { path: '/info/revise', name: '用户信息修改', component: './Info/Revise' },
+      { path: '/info/submission', name: '提交记录 + 统计', component: './Info/Submission' },
     ],
   },
   { path: '*', layout: false, component: './404' },
