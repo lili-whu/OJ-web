@@ -28,8 +28,9 @@ export default () => {
     { label: '普通', value: '普通' },
     { label: '困难', value: '困难' },
   ];
-
   const questionType = [
+    { label: '数组', value: '数组' },
+    { label: '双指针', value: '双指针' },
     { label: '栈', value: '栈' },
     { label: '队列', value: '队列' },
     { label: '二叉树', value: '二叉树' },
@@ -121,8 +122,8 @@ export default () => {
           form={form}
           onFinish={(data) => {
             var judgeConfig: API.JudgeConfig = {
-              timeLimit: data.time,
-              memoryLimit: data.memory,
+              timeLimit: data.time * 1000,
+              memoryLimit: data.memory * 1000 * 1000,
             };
             data.judgeConfig = judgeConfig;
             handleSubmit(data);
@@ -216,10 +217,10 @@ export default () => {
             判题限制
           </Typography.Title>
           <Form.Item label="内存限制" name="memory">
-            <InputNumber addonAfter="byte" />
+            <InputNumber addonAfter="MB" />
           </Form.Item>
           <Form.Item label="时间限制" name="time">
-            <InputNumber addonAfter="ms" />
+            <InputNumber addonAfter="s" />
           </Form.Item>
 
           <Form.Item

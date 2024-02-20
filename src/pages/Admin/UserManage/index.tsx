@@ -120,12 +120,12 @@ const columns: ProColumns<API.SafetyUser>[] = [
     // ellipsis: true,
     valueType: 'select',
     valueEnum: {
-      0: {
+      1: {
         text: '男',
         status: 'Processing',
         // disabled: true,
       },
-      1: {
+      0: {
         text: '女',
         status: 'Error',
       },

@@ -72,6 +72,7 @@ export default () => {
       setRecordId(result.data);
     } else {
       message.error(result.message);
+      return;
     }
     setSubmitStatus('Waiting');
     setTimeout(function () {
@@ -156,9 +157,9 @@ export default () => {
               value={lang}
               onChange={setLang}
               options={[
-                { value: 1, label: 'Java' },
-                { value: 2, label: 'C++' },
-                { value: 3, label: 'Golang' },
+                { value: 1, label: 'java' },
+                { value: 2, label: 'cpp' },
+                { value: 3, label: 'go' },
               ]}
             />
           </div>

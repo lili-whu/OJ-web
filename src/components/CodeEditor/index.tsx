@@ -6,13 +6,13 @@ export default (props: {
   value: string;
   onValueChange: (arg0: string) => void;
 }) => {
-  const template = ['Java', 'Golang', 'C++'];
+  const template = ['java', 'go', 'cpp'];
   return (
     <Editor
       height="50vh"
       value={props.value}
-      defaultLanguage="Java"
-      language={template[props.lang + 1]}
+      defaultLanguage="java"
+      language={template[props.lang - 1]}
       defaultValue=""
       theme={props.codeBack}
       onChange={(value) => {

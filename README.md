@@ -4,6 +4,22 @@
 
 - 基础登录注册用户管理功能继承 user-center-web 项目
 
+## 项目部署
+
+安装 nginx, rabbitmq, java17, mysql, docker, redis, maven (sh init.sh)
+
+启动各项服务
+
+前端项目打包 npm run build, 复制 dist 到服务器
+
+修改 nginx 配置(/etc/nginx/nginx.conf), 修改端口, 后端请求转发, root 路径 // 注意参考 antd pro 官方部署文档调整参数! sudo nginx -s reload 修改 mysql 密码 sql 语句初始化数据库表后端项目上传, 创建数据库表, 代码沙箱和判题项目打包, 运行 startback.sh
+
+```shell
+mvn clean package -DskipTests
+java -jar ./target/codesandbox-0.0.1-SNAPSHOT.jar
+java -jar ./target/OJ-backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+```
+
 ## 2.10
 
 1. 引入 markdown 编辑 https://github.com/bytedance/bytemd 创建两个组件 MdEditor 和 MdViewer, 定义 props(值和回调函数)用于和父组件通信
@@ -37,6 +53,7 @@
 1. 用户信息修改界面
 2. 用户查看做题详情界面
 3. 用户查看提交记录界面
+4. bug: defaultLanguage 设置成 java 实现代码高亮, 之前设置成 Java, 没有该属性
 
 # web 用户中心
 

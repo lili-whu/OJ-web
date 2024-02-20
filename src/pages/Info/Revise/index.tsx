@@ -151,6 +151,7 @@ export default () => {
             name="userAccount"
             rules={[
               {
+                required: true,
                 pattern: /[0-9a-zA-Z_]{6,20}/,
                 message: '账号需大于等于6位, 由字母数字下划线组成',
               },

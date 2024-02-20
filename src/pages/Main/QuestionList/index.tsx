@@ -74,6 +74,8 @@ const options = [
 ];
 
 const questionType = [
+  { label: '数组', value: '数组' },
+  { label: '双指针', value: '双指针' },
   { label: '栈', value: '栈' },
   { label: '队列', value: '队列' },
   { label: '二叉树', value: '二叉树' },

@@ -4,7 +4,7 @@ import type { TableProps } from 'antd';
 import { Card, Tag, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 
-const lang = ['', 'Java', 'Golang'];
+const lang = ['', 'java', 'cpp', 'go'];
 const columns: TableProps<API.RecordSubmitVO>['columns'] = [
   {
     title: '做题状态',
