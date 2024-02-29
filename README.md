@@ -1,8 +1,38 @@
 # OJ 系统前端界面
 
-使用 react,ant design pro, umi 构建的登录注册, 用户管理的 web 前端
+使用 react, ant design, ant design pro 构建的 OJ 系统前端
 
-- 基础登录注册用户管理功能继承 user-center-web 项目
+#### 在线访问
+
+http://121.199.10.73
+
+#### 前端界面组成
+
+- 登录、注册界面
+- 题目展示和条件查询
+- 做题界面
+  - 左侧题目内容、题解、提交记录
+  - 详细提交记录界面
+  - 右侧代码编辑和结果展示界面
+- 管理界面(管理员)
+  - 题目创建
+  - 题目修改
+  - 用户管理
+- 管理界面(用户)
+  - 用户个人信息管理
+  - 历史提交记录查询
+
+#### 主要功能介绍
+
+- 用户登录、注册
+- 题目编辑上传和修改(介绍、测试用例、时空限制、类型、难度、题解等)
+- 根据标题、标签、类型查询题目, 代码提交记录查询
+- 代码在线编辑, 提交, 展示运行结果
+- 自动保存代码提交历史记录
+
+## ————————————————————————————————————————
+
+## 分割线下为项目实现笔记
 
 ## 项目部署
 
@@ -10,14 +40,13 @@
 
 启动各项服务
 
-前端项目打包 npm run build, 复制 dist 到服务器
-
-修改 nginx 配置(/etc/nginx/nginx.conf), 修改端口, 后端请求转发, root 路径 // 注意参考 antd pro 官方部署文档调整参数! sudo nginx -s reload 修改 mysql 密码 sql 语句初始化数据库表后端项目上传, 创建数据库表, 代码沙箱和判题项目打包, 运行 startback.sh
+前端项目打包 npm run build, 复制 dist 到服务器下载镜像 docker pull openjdk:17.0.2-jdk-oraclelinux7 修改 nginx 配置(/etc/nginx/nginx.conf), 修改端口, 后端请求转发, root 路径 // 注意参考 antd pro 官方部署文档调整参数! sudo nginx -s reload 修改 mysql 密码 sql 语句初始化数据库表后端项目上传, 创建数据库表, 代码沙箱和判题项目打包, 运行 startback.sh
 
 ```shell
 mvn clean package -DskipTests
 java -jar ./target/codesandbox-0.0.1-SNAPSHOT.jar
 java -jar ./target/OJ-backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+
 ```
 
 ## 2.10
